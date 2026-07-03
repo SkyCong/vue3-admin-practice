@@ -70,7 +70,7 @@ module.exports = {
       { severity: 'warning' },
     ],
   },
-  ignoreFiles: ['**/*.js', '**/*.jsx', '**/*.tsx', '**/*.ts'],
+  // ignoreFiles 已在 .stylelintignore 中配置，此处删除避免冲突
   overrides: [
     {
       files: ['*.vue', '**/*.vue', '*.html', '**/*.html'],

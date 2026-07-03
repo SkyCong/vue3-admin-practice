@@ -24,9 +24,9 @@ export function createVitePlugins(isBuild: boolean) {
     // JSX支持
     vueJsx(),
     // 提供https证书
-    VitePluginCertificate({
-      source: 'coding',
-    }),
+    // VitePluginCertificate({
+    //   source: 'coding',
+    // }),
     // setup语法糖组件名支持
     vueSetupExtend(),
     // 自动按需引入组件

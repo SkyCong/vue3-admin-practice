@@ -18,14 +18,6 @@ export default [
     component: () => import('/@/pages/home/index.vue'),
   },
   {
-    path: '/dashboard',
-    name: 'dashboard',
-    meta: {
-      title: '仪表盘',
-    },
-    component: () => import('/@/pages/dashboard/index.vue'),
-  },
-  {
     path: '/userList',
     name: 'userList',
     meta: {
@@ -40,13 +32,5 @@ export default [
       title: '新增用户',
     },
     component: () => import('/@/pages/features/user/add.vue'),
-  },
-  {
-    path: '/table2',
-    name: 'table2',
-    meta: {
-      title: '列表2',
-    },
-    component: () => import('/@/pages/features/table2/index.vue'),
   },
 ]
