@@ -61,6 +61,10 @@
         },
       ],
     },
+    {
+      index: '/curvedata',
+      title: '曲线数据',
+    },
   ]
 </script>
 <style scoped lang="less">

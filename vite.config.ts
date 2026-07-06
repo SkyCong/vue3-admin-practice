@@ -11,6 +11,7 @@ function pathResolve(dir: string) {
 // https://vitejs.dev/config/
 export default ({ command, mode }: ConfigEnv): UserConfig => {
   const isBuild = command === 'build'
+  const isDev = command === 'serve'
   console.log(command, mode)
   return {
     resolve: {
@@ -45,7 +46,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       open: false, // 类型： boolean | string在服务器启动时自动在浏览器中打开应用程序；
       cors: false, // 类型： boolean | CorsOptions 为开发服务器配置 CORS。默认启用并允许任何源
       host: '0.0.0.0', // IP配置，支持从IP启动
-      proxy,
+      // dev 模式下不配置 /api proxy（使用 mock），build/preview 时才需要
+      proxy: isDev ? undefined : proxy,
     },
 
     // build

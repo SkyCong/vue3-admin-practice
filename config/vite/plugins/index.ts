@@ -14,9 +14,19 @@ import { ConfigCompressPlugin } from './compress'
 import { ConfigVisualizerConfig } from './visualizer'
 import { ConfigRestartPlugin } from './restart'
 import { ConfigProgressPlugin } from './progress'
+import { viteMockServe } from 'vite-plugin-mock'
 
 export function createVitePlugins(isBuild: boolean) {
   const vitePlugins: (Plugin | Plugin[])[] = [
+    // vite-plugin-mock (必须放在最前面，让 mock 中间件在 proxy 之前执行)
+    ...(!isBuild
+      ? [
+          viteMockServe({
+            mockPath: 'mock',
+            localEnabled: true,
+          }),
+        ]
+      : []),
     // vue支持
     vue(),
     // JSX支持

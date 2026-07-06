@@ -33,4 +33,12 @@ export default [
     },
     component: () => import('/@/pages/features/user/add.vue'),
   },
+  {
+    path: '/curvedata',
+    name: 'curvedata',
+    meta: {
+      title: '曲线数据',
+    },
+    component: () => import('/@/pages/curvedata/index.vue'),
+  },
 ]
