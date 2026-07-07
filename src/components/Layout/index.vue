@@ -1,82 +1,61 @@
 <template>
-  <div class="layout-con">
-    <div class="logo">Secret Garden</div>
-    <el-menu default-active="1" :router="true" background-color="#222832" text-color="#fff">
-      <template v-for="item in menus">
-        <template v-if="item.subs">
-          <el-sub-menu :index="item.index" :key="item.index">
-            <template #title>
-              <span>{{ item.title }}</span>
-            </template>
-            <template v-for="subItem in item.subs">
-              <el-sub-menu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
-                <template #title>{{ subItem.title }}</template>
-                <el-menu-item
-                  v-for="(threeItem, i) in subItem.subs"
-                  :key="i"
-                  :index="threeItem.index"
-                >
-                  {{ threeItem.title }}</el-menu-item
-                >
-              </el-sub-menu>
-              <el-menu-item v-else :index="subItem.index" :key="'sub' + subItem.index"
-                >{{ subItem.title }}
-              </el-menu-item>
-            </template>
-          </el-sub-menu>
-        </template>
-        <template v-else>
-          <el-menu-item :index="item.index" :key="item.index">
-            <template #title>{{ item.title }}</template>
-          </el-menu-item>
-        </template>
-      </template>
-    </el-menu>
-  </div>
+  <el-menu
+    :default-active="activeIndex"
+    :router="true"
+    mode="horizontal"
+    background-color="#222832"
+    text-color="#cfd3dc"
+    active-text-color="#ffffff"
+    class="top-menu"
+  >
+    <template v-for="item in menus" :key="item.index">
+      <el-sub-menu v-if="item.subs" :index="item.index">
+        <template #title>{{ item.title }}</template>
+        <el-menu-item v-for="sub in item.subs" :key="sub.index" :index="sub.index">
+          {{ sub.title }}
+        </el-menu-item>
+      </el-sub-menu>
+      <el-menu-item v-else :index="item.index">{{ item.title }}</el-menu-item>
+    </template>
+  </el-menu>
 </template>
 
 <script lang="ts" setup>
-  type MenuItem = { index: string; title: string; icon?: string; subs?: Array<MenuItem> }
+  import { computed } from 'vue'
+  import { useRoute } from 'vue-router'
 
+  type MenuItem = { index: string; title: string; subs?: MenuItem[] }
+
+  // 菜单项与路由保持同步
   const menus: MenuItem[] = [
+    { index: '/home', title: '系统首页' },
+    { index: '/curvedata', title: '曲线数据' },
     {
-      index: '/home',
-      title: '系统首页',
-    },
-    {
-      index: '/dashboard',
-      title: '仪表盘',
-    },
-    {
-      index: '/features',
-      title: '功能',
+      index: '/user',
+      title: '用户管理',
       subs: [
-        {
-          index: '/userList',
-          title: '用户',
-        },
-        {
-          index: '/table2',
-          title: '列表2',
-        },
+        { index: '/userList', title: '用户列表' },
+        { index: '/addUser', title: '新增用户' },
       ],
     },
-    {
-      index: '/curvedata',
-      title: '曲线数据',
-    },
   ]
-</script>
-<style scoped lang="less">
-  .layout-con {
-    background-color: #222832;
-    height: 100vh;
 
-    .logo {
-      text-align: center;
-      padding: 20px 0;
-      color: #fff;
-      font-weight: 500;
+  const route = useRoute()
+  const activeIndex = computed(() => route.path)
+</script>
+
+<style scoped lang="less">
+  .top-menu {
+    flex: 1;
+    height: 60px;
+    border-bottom: none;
+    min-width: 0; // 允许 flex 收缩
+
+    // 水平菜单项高度对齐顶栏
+    :deep(.el-menu-item),
+    :deep(.el-sub-menu__title) {
+      height: 60px;
+      line-height: 60px;
     }
   }
 </style>
