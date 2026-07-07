@@ -30,3 +30,5 @@ packages/
 /workbuddy/
 .pnpm-store/
 public/rawgraphs/
+types/components.d.ts
+.workbuddy/memory/2026-07-07.md
